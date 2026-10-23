@@ -21,6 +21,8 @@ export const UI = {
   viewPdf: "View PDF",
   comingSoon: "Coming soon",
   imageComingSoon: "Image coming soon",
+  expandImage: "Expand photo",
+  closeImage: "Close photo",
   videoComingSoon: "Video coming soon",
   featured: "Featured",
   readMore: "Read more",

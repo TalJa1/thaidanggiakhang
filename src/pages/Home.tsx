@@ -38,7 +38,6 @@ export default function Home() {
     if (reduced || !heroRef.current) return;
     const ctx = gsap.context(() => {
       const st = { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: true };
-      gsap.to(".hero__main .img img", { scale: 1.08, yPercent: 6, ease: "none", scrollTrigger: st });
       gsap.to(".hero__feature", { yPercent: -22, ease: "none", scrollTrigger: st });
       gsap.to(".hero__quad", { yPercent: -30, ease: "none", scrollTrigger: st });
       gsap.to(".hero__copy", { yPercent: 10, opacity: 0.35, ease: "none", scrollTrigger: st });
@@ -69,7 +68,7 @@ export default function Home() {
           <div className="hero__media">
             <HudFrame label="REC · SCAN · LOCK" className="hero__main">
               <div className="scan-reveal">
-                <Img name="home-hero" alt="Thai Dang Gia Khang with an engineering project" ratio="4 / 5" priority position="50% 25%" />
+                <Img name="home-hero" alt="Thai Dang Gia Khang with an engineering project" ratio="3 / 2" fit="contain" priority />
               </div>
             </HudFrame>
             <HudFrame label="TRACK" className="hero__feature">

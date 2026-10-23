@@ -6,6 +6,7 @@ import CursorCrosshair from "./components/CursorCrosshair";
 import Footer from "./components/Footer";
 import GridBackground from "./components/GridBackground";
 import Header from "./components/Header";
+import Lightbox from "./components/Lightbox";
 import Magnetic from "./components/Magnetic";
 import PageTransition from "./components/PageTransition";
 import ScrollManager from "./components/ScrollManager";
@@ -67,6 +68,7 @@ export default function App() {
       <Footer />
       <ScrollRuler />
       <CommandPalette />
+      <Lightbox />
       <CursorCrosshair />
       <Magnetic />
       <ScrollManager />

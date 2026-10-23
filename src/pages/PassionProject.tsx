@@ -77,7 +77,7 @@ export default function PassionProject() {
         <div className="container aqua-hero__grid">
           <div className="aqua-hero__copy">
             <div className="aqua-hero__logo">
-              <Img name="aquarescue-logo" alt="Aquarescue logo" ratio="1 / 1" fit="contain" priority />
+              <Img name="aquarescue-logo" alt="Aquarescue logo" ratio="1 / 1" fit="contain" priority expand={false} />
             </div>
             <h1 id="aqua-title" className="display aqua-hero__title">
               {P.title}

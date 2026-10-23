@@ -6,7 +6,7 @@ export const IMAGES = {
   "home-feature": "home-feature.jpg",                 // not uploaded yet (see IMAGE_FALLBACKS)
   "about-main": "about-main.jpg",
   "about-work": "about-work.jpg",                     // only a PDF exists so far
-  "research-rescue-1": "research-rescue-1.jpg",       // (HEIC) JPG to be uploaded
+  "research-rescue-1": "research-rescue-1.jpg",       // (HEIC) see LOCAL_IMAGES
   "research-rescue-2": "research-rescue-2.JPG",
   "research-flood-1": "research-flood-1.jpg",         // only a PDF exists so far
   "research-flood-2": "research-flood-2.jpg",         // not uploaded yet
@@ -15,11 +15,11 @@ export const IMAGES = {
   "research-cantho-1": "research-cantho-1.jpg",       // not uploaded yet
   "research-cantho-2": "research-cantho-2.jpg",       // not uploaded yet
   "community-nextgen-1": "community-nextgen-1.JPG",
-  "community-nextgen-2": "community-nextgen-2.jpg",   // (HEIC) JPG to be uploaded
+  "community-nextgen-2": "community-nextgen-2.jpg",   // (HEIC) see LOCAL_IMAGES
   "community-nextgen-3": "community-nextgen-3.JPG",
-  "community-giveforward-1": "community-giveforward-1.jpg", // (HEIC)
-  "community-giveforward-2": "community-giveforward-2.jpg", // (HEIC)
-  "community-giveforward-3": "community-giveforward-3.jpg", // (HEIC)
+  "community-giveforward-1": "community-giveforward-1.jpg", // (HEIC) see LOCAL_IMAGES
+  "community-giveforward-2": "community-giveforward-2.jpg", // (HEIC) see LOCAL_IMAGES
+  "community-giveforward-3": "community-giveforward-3.jpg", // (HEIC) see LOCAL_IMAGES
   "community-canvas-1": "community-canvas-1.jpg",
   "community-canvas-2": "community-canvas-2.jpg",
   "community-canvas-3": "community-canvas-3.JPG",
@@ -29,16 +29,35 @@ export const IMAGES = {
   "award-sports-festival": "award-sports-festival.webp",
   "award-chess": "award-chess.webp",
   "aquarescue-logo": "aquarescue-logo.png",
-  "aquarescue-hero": "aquarescue-hero.jpg",                   // (HEIC)
-  "aquarescue-education-2": "aquarescue-education-2.jpg",     // (HEIC)
-  "aquarescue-posters-1": "aquarescue-posters-1.jpg",         // (HEIC)
-  "aquarescue-posters-2": "aquarescue-posters-2.jpg",         // (HEIC)
-  "aquarescue-lifejackets-1": "aquarescue-lifejackets-1.jpg", // (HEIC)
-  "aquarescue-lifejackets-2": "aquarescue-lifejackets-2.jpg", // (HEIC)
-  "aquarescue-school-1": "aquarescue-school-1.jpg",           // (HEIC)
-  "aquarescue-school-2": "aquarescue-school-2.jpg",           // (HEIC)
-  "aquarescue-founder": "aquarescue-founder.jpg"              // (HEIC)
+  "aquarescue-hero": "aquarescue-hero.jpg",                   // (HEIC) see LOCAL_IMAGES
+  "aquarescue-education-2": "aquarescue-education-2.jpg",     // (HEIC) see LOCAL_IMAGES
+  "aquarescue-posters-1": "aquarescue-posters-1.jpg",         // (HEIC) see LOCAL_IMAGES
+  "aquarescue-posters-2": "aquarescue-posters-2.jpg",         // (HEIC) see LOCAL_IMAGES
+  "aquarescue-lifejackets-1": "aquarescue-lifejackets-1.jpg", // (HEIC) see LOCAL_IMAGES
+  "aquarescue-lifejackets-2": "aquarescue-lifejackets-2.jpg", // (HEIC) see LOCAL_IMAGES
+  "aquarescue-school-1": "aquarescue-school-1.jpg",           // (HEIC) see LOCAL_IMAGES
+  "aquarescue-school-2": "aquarescue-school-2.jpg",           // (HEIC) see LOCAL_IMAGES
+  "aquarescue-founder": "aquarescue-founder.jpg"              // (HEIC) see LOCAL_IMAGES
 } as const;
+
+// Slots whose Firebase original is HEIC: a converted copy is served from public/media/<slot>.jpg
+// (regenerate with `python scripts/heic-to-jpg.py`).
+export const LOCAL_IMAGES = new Set<string>([
+  "research-rescue-1",
+  "community-nextgen-2",
+  "community-giveforward-1",
+  "community-giveforward-2",
+  "community-giveforward-3",
+  "aquarescue-hero",
+  "aquarescue-education-2",
+  "aquarescue-posters-1",
+  "aquarescue-posters-2",
+  "aquarescue-lifejackets-1",
+  "aquarescue-lifejackets-2",
+  "aquarescue-school-1",
+  "aquarescue-school-2",
+  "aquarescue-founder"
+]);
 
 // If an image slot has no usable file yet, show another real photo instead of a placeholder.
 export const IMAGE_FALLBACKS: Record<string, string> = {
@@ -71,7 +90,7 @@ export function mediaUrl(fileName: string): string {
 const NOT_DISPLAYABLE = /\.(heic|heif|pdf)$/i;
 
 /**
- * Ordered list of URLs to try for an image slot: the configured file, the same
+ * Ordered list of URLs to try for an image slot: the local converted copy (LOCAL_IMAGES), the configured file, the same
  * base name with each FALLBACK_EXTENSIONS entry, then the IMAGE_FALLBACKS slot.
  */
 export function imageCandidates(name: string, seen = new Set<string>()): string[] {
@@ -79,6 +98,7 @@ export function imageCandidates(name: string, seen = new Set<string>()): string[
   seen.add(name);
   const file = (IMAGES as Record<string, string>)[name];
   const out: string[] = [];
+  if (LOCAL_IMAGES.has(name)) out.push(`/media/${name}.jpg`);
   if (file) {
     const dot = file.lastIndexOf(".");
     const base = dot > 0 ? file.slice(0, dot) : file;

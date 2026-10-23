@@ -25,6 +25,22 @@ export function ArrowUpRight({ size = 14 }: { size?: number }) {
 }
 
 /** Animated chip + crosshair brand mark. */
+export function Expand({ size = 14 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 16 16" width={size} height={size} aria-hidden="true" className="ico">
+      <path d="M10 2h4v4M6 14H2v-4M14 2L9.5 6.5M2 14l4.5-4.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function Close({ size = 16 }: { size?: number }) {
+  return (
+    <svg viewBox="0 0 16 16" width={size} height={size} aria-hidden="true" className="ico">
+      <path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function LogoMark() {
   return (
     <svg className="logo-mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">

@@ -44,6 +44,10 @@ Files are served from public Firebase Storage URLs, with no Firebase SDK. Everyt
   Slots are never hidden. Uploading the missing JPG makes the photo appear with no code change.
 - `.HEIC` and `.PDF` files are never used as images (browsers can't display them). Convert
   them to `.jpg` and upload them under the file name listed in `IMAGES`.
+- **`LOCAL_IMAGES`**: slots whose Firebase original is `.HEIC`. They load a converted copy from
+  `public/media/<slot>.jpg` first. To refresh those copies after uploading new HEIC photos, run
+  `pip install pillow pillow-heif` then `python scripts/heic-to-jpg.py`, and add any new slot name
+  to `LOCAL_IMAGES`.
 - **`VIDEOS`**: each video lists its sources in order (`.mp4` first, then `.MOV`). If none can
   play, a "Video coming soon" card is shown. Chrome, Edge and Firefox generally cannot play
   `.MOV`, so upload an `.mp4` for full support.

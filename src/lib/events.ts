@@ -14,6 +14,23 @@ export function onPaletteOpen(cb: () => void) {
   return () => window.removeEventListener(PALETTE_EVENT, cb);
 }
 
+const LIGHTBOX_EVENT = "gk:lightbox";
+
+export interface LightboxImage {
+  src: string;
+  alt: string;
+}
+
+export function openLightbox(image: LightboxImage) {
+  window.dispatchEvent(new CustomEvent<LightboxImage>(LIGHTBOX_EVENT, { detail: image }));
+}
+
+export function onLightboxOpen(cb: (image: LightboxImage) => void) {
+  const handler = (e: Event) => cb((e as CustomEvent<LightboxImage>).detail);
+  window.addEventListener(LIGHTBOX_EVENT, handler);
+  return () => window.removeEventListener(LIGHTBOX_EVENT, handler);
+}
+
 /** "Let's Connect": LINKS.contact when set, otherwise the footer. */
 export function connect() {
   if (LINKS.contact) {
