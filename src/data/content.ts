@@ -242,6 +242,9 @@ export interface Award {
   text: string;
   image: ImageName;
   levels: { level: Level; label: string }[];
+  /** Extra photos / videos browsable from the expanded image. */
+  gallery?: { src: string; alt: string; video?: boolean }[];
+  link?: { href: string; label: string };
 }
 
 export const AWARDS = {
@@ -259,6 +262,13 @@ export const AWARDS = {
           text: "Recognized for innovative thinking and project development at an international competition showcasing student inventions, creative ideas, and technological solutions",
           image: "award-wico",
           levels: [{ level: "gold", label: "Gold" }],
+          gallery: [
+            { src: "/media/award-wico-1.jpg", alt: "WICO 2026 photo 1" },
+            { src: "/media/award-wico-2.jpg", alt: "WICO 2026 photo 2" },
+            { src: "/media/award-wico-3.jpg", alt: "WICO 2026 photo 3" },
+            { src: "/media/award-wico-4.jpg", alt: "WICO 2026 photo 4" },
+            { src: "/media/award-wico.mp4", alt: "WICO 2026 video", video: true },
+          ],
         },
         {
           title: "Gold Award",
@@ -267,6 +277,11 @@ export const AWARDS = {
           text: "Awarded for demonstrating robotics engineering, programming, and problem-solving through the development and presentation of a robotics project.",
           image: "award-wro",
           levels: [{ level: "gold", label: "Gold" }],
+          gallery: [
+            { src: "/media/award-wro-1.jpg", alt: "WRO 2026 photo 1" },
+            { src: "/media/award-wro-2.jpg", alt: "WRO 2026 photo 2" },
+          ],
+          link: { href: "https://www.facebook.com/reel/1364307315811235", label: "Watch on Facebook" },
         },
         {
           title: "Bronze Award",

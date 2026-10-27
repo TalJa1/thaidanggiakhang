@@ -19,14 +19,22 @@ const LIGHTBOX_EVENT = "gk:lightbox";
 export interface LightboxImage {
   src: string;
   alt: string;
+  /** Set for a video item (shown with controls instead of an <img>). */
+  video?: boolean;
 }
 
-export function openLightbox(image: LightboxImage) {
-  window.dispatchEvent(new CustomEvent<LightboxImage>(LIGHTBOX_EVENT, { detail: image }));
+export interface LightboxOpen extends LightboxImage {
+  /** Optional set to browse with prev/next; `index` is where to start. */
+  gallery?: LightboxImage[];
+  index?: number;
 }
 
-export function onLightboxOpen(cb: (image: LightboxImage) => void) {
-  const handler = (e: Event) => cb((e as CustomEvent<LightboxImage>).detail);
+export function openLightbox(image: LightboxOpen) {
+  window.dispatchEvent(new CustomEvent<LightboxOpen>(LIGHTBOX_EVENT, { detail: image }));
+}
+
+export function onLightboxOpen(cb: (image: LightboxOpen) => void) {
+  const handler = (e: Event) => cb((e as CustomEvent<LightboxOpen>).detail);
   window.addEventListener(LIGHTBOX_EVENT, handler);
   return () => window.removeEventListener(LIGHTBOX_EVENT, handler);
 }

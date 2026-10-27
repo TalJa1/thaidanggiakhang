@@ -48,6 +48,7 @@ export const LOCAL_IMAGES = new Set<string>([
   "research-flood-1",
   "research-flood-2",
   "research-cantho-1",
+  "research-romad-1",
   "research-rescue-1",
   "community-nextgen-2",
   "community-giveforward-1",

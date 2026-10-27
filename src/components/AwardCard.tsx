@@ -2,6 +2,8 @@ import { useRef } from "react";
 import type { Award, Level } from "../data/content";
 import { useInView } from "../hooks/useInView";
 import MedalTilt from "../sims/MedalTilt";
+import { ArrowUpRight } from "./Icons";
+import { openLightbox } from "../lib/events";
 import Img from "./Img";
 
 const TONE: Record<Level, string> = { gold: "#F5C451", silver: "#C9D3E0", bronze: "#D58A55", third: "#22D3EE" };
@@ -35,12 +37,18 @@ function MedalIcon({ level }: { level: Level }) {
 export default function AwardCard({ award, alt, index }: { award: Award; alt: string; index: number }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, threshold: 0.25 });
+  const openAt = (i: number) => {
+    const main = ref.current?.querySelector<HTMLImageElement>(".award__media img");
+    if (!main || !award.gallery) return;
+    const alt = main.alt;
+    openLightbox({ src: main.src, alt, gallery: [{ src: main.src, alt }, ...award.gallery], index: i });
+  };
   return (
     <article ref={ref} className={`award ${inView ? "is-in" : ""}`} style={{ transitionDelay: `${index * 90}ms` }}>
       <MedalTilt>
         <div className="award__card">
           <div className="award__media">
-            <Img name={award.image} alt={alt} ratio="4 / 3" fit="contain" mat />
+            <Img name={award.image} alt={alt} ratio="4 / 3" fit="contain" mat more={award.gallery} />
             <div className="award__ribbons">
               {award.levels.map((l) => (
                 <span key={l.level} className={`ribbon ribbon--${l.level}`}>
@@ -55,6 +63,31 @@ export default function AwardCard({ award, alt, index }: { award: Award; alt: st
             <p className="award__event">{award.event}</p>
             <p className="award__cat">{award.category}</p>
             <p className="award__text">{award.text}</p>
+            {(award.gallery || award.link) && (
+              <div className="award__extras">
+                {award.gallery && (
+                  <div className="award__thumbs">
+                    {award.gallery.map((g, i) => (
+                      <button key={g.src} type="button" className="award__thumb" aria-label={`${g.alt} — enlarge`} onClick={() => openAt(i + 1)}>
+                        {g.video ? <span className="award__thumb-play" aria-hidden="true">▶</span> : <img src={g.src} alt="" loading="lazy" />}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div className="award__actions">
+                  {award.gallery && (
+                    <button type="button" className="award__btn" onClick={() => openAt(1)}>
+                      View all {award.gallery.length + 1}
+                    </button>
+                  )}
+                  {award.link && (
+                    <a className="award__btn" href={award.link.href} target="_blank" rel="noopener noreferrer">
+                      {award.link.label} <ArrowUpRight />
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
           <span className="award__shimmer" aria-hidden="true" />
         </div>

@@ -1,7 +1,7 @@
 import { useMemo, useState, type CSSProperties } from "react";
 import { imageCandidates, type ImageName } from "../config/media";
 import { UI } from "../data/content";
-import { openLightbox } from "../lib/events";
+import { openLightbox, type LightboxImage } from "../lib/events";
 import { Expand } from "./Icons";
 
 interface Props {
@@ -19,6 +19,8 @@ interface Props {
   sizes?: string;
   /** Click to open the photo full-screen (default true). */
   expand?: boolean;
+  /** More photos/videos to browse after this one when it is expanded. */
+  more?: LightboxImage[];
 }
 
 // Remember what worked / failed so a slot used on several pages does not retry.
@@ -35,7 +37,7 @@ export default function Img(props: Props) {
   return <ImgSlot key={props.name} {...props} />;
 }
 
-function ImgSlot({ name, alt, ratio = "4 / 3", fit = "cover", position = "50% 30%", priority, mat, className = "", sizes, expand = true }: Props) {
+function ImgSlot({ name, alt, ratio = "4 / 3", fit = "cover", position = "50% 30%", priority, mat, className = "", sizes, expand = true, more }: Props) {
   const candidates = useMemo(() => imageCandidates(name), [name]);
   const [index, setIndex] = useState(() => {
     const known = good.get(name);
@@ -77,7 +79,7 @@ function ImgSlot({ name, alt, ratio = "4 / 3", fit = "cover", position = "50% 30
         }}
       />
       {expand && (
-        <button type="button" className="img__zoom" aria-label={`${UI.expandImage}: ${alt}`} onClick={() => openLightbox({ src, alt })}>
+        <button type="button" className="img__zoom" aria-label={`${UI.expandImage}: ${alt}`} onClick={() => openLightbox(more?.length ? { src, alt, gallery: [{ src, alt }, ...more], index: 0 } : { src, alt })}>
           <span className="img__zoom-icon" aria-hidden="true">
             <Expand />
           </span>
