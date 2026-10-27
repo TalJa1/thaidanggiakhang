@@ -9,7 +9,6 @@ import OdometerStat from "../components/OdometerStat";
 import Reveal from "../components/Reveal";
 import Section, { Eyebrow } from "../components/Section";
 import StatsLine from "../components/StatsLine";
-import Video from "../components/Video";
 import WaveDivider from "../components/WaveDivider";
 import { BookIcon, LifeJacketIcon, MegaphoneIcon } from "../components/WaterIcons";
 import { LINKS } from "../config/links";
@@ -23,6 +22,7 @@ const SonarRipples = lazy(() => import("../sims/SonarRipples"));
 const APPROACH_ICONS = { education: BookIcon, awareness: MegaphoneIcon, access: LifeJacketIcon } as const;
 
 const WHAT_ALTS: Record<string, string> = {
+  "aquarescue-education-1": "A water-safety education session at a primary school in Can Tho",
   "aquarescue-education-2": "A drowning-prevention session with primary school students",
   "aquarescue-posters-1": "A drowning-prevention poster displayed in the community",
   "aquarescue-posters-2": "Aquarescue posters at a community location in Can Tho",
@@ -190,7 +190,7 @@ export default function PassionProject() {
                     </p>
                   ))}
                 </Reveal>
-                <div className={`action__media action__media--${item.images.length + (item.video ? 1 : 0)}`}>
+                <div className={`action__media action__media--${item.images.length}`}>
                   {item.images.map((img, k) => (
                     <Reveal key={img} variant="clip" delay={k * 110}>
                       <HudFrame tone="cyan" label={k ? "REC" : "SCAN"}>
@@ -198,13 +198,6 @@ export default function PassionProject() {
                       </HudFrame>
                     </Reveal>
                   ))}
-                  {item.video && (
-                    <Reveal variant="clip" delay={110}>
-                      <HudFrame tone="cyan" label="REC">
-                        <Video name="aquarescue-education-1" label="Video of an Aquarescue water-safety education session" ratio="4 / 3" />
-                      </HudFrame>
-                    </Reveal>
-                  )}
                 </div>
               </li>
             ))}

@@ -1,9 +1,9 @@
-import { DOCS, mediaUrl, type DocName } from "../config/media";
+import { DOCS, LOCAL_DOCS, mediaUrl, type DocName } from "../config/media";
 import { UI } from "../data/content";
 
 export default function DocLink({ name, describedBy }: { name: DocName; describedBy?: string }) {
   return (
-    <a className="doc" href={mediaUrl(DOCS[name])} target="_blank" rel="noopener noreferrer" aria-describedby={describedBy}>
+    <a className="doc" href={LOCAL_DOCS.has(name) ? `/docs/${DOCS[name]}` : mediaUrl(DOCS[name])} target="_blank" rel="noopener noreferrer" aria-describedby={describedBy}>
       <svg className="doc__icon" viewBox="0 0 40 48" aria-hidden="true">
         <path d="M6 2h20l10 10v32a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="rgba(34,211,238,.06)" stroke="currentColor" strokeWidth="1.5" />
         <path d="M26 2v10h10" fill="none" stroke="currentColor" strokeWidth="1.5" />

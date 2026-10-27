@@ -30,6 +30,7 @@ export const IMAGES = {
   "award-chess": "award-chess.webp",
   "aquarescue-logo": "aquarescue-logo.png",
   "aquarescue-hero": "aquarescue-hero.jpg",                   // (HEIC) see LOCAL_IMAGES
+  "aquarescue-education-1": "aquarescue-education-1.jpg",     // see LOCAL_IMAGES
   "aquarescue-education-2": "aquarescue-education-2.jpg",     // (HEIC) see LOCAL_IMAGES
   "aquarescue-posters-1": "aquarescue-posters-1.jpg",         // (HEIC) see LOCAL_IMAGES
   "aquarescue-posters-2": "aquarescue-posters-2.jpg",         // (HEIC) see LOCAL_IMAGES
@@ -43,12 +44,17 @@ export const IMAGES = {
 // Slots whose Firebase original is HEIC: a converted copy is served from public/media/<slot>.jpg
 // (regenerate with `python scripts/heic-to-jpg.py`).
 export const LOCAL_IMAGES = new Set<string>([
+  "about-work",
+  "research-flood-1",
+  "research-flood-2",
+  "research-cantho-1",
   "research-rescue-1",
   "community-nextgen-2",
   "community-giveforward-1",
   "community-giveforward-2",
   "community-giveforward-3",
   "aquarescue-hero",
+  "aquarescue-education-1",
   "aquarescue-education-2",
   "aquarescue-posters-1",
   "aquarescue-posters-2",
@@ -73,6 +79,9 @@ export const DOCS = {
   "research-flood-1": "research-flood-1.pdf",
   "research-romad-1": "research-romad-1.pdf"
 } as const;
+
+// Docs served from public/docs/<file> instead of Firebase.
+export const LOCAL_DOCS = new Set<string>(["research-romad-1"]);
 
 // If a configured image fails (wrong extension/case), try the same base name with these extensions before giving up.
 export const FALLBACK_EXTENSIONS = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG", ".webp"];

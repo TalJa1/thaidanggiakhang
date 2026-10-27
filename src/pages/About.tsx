@@ -28,7 +28,7 @@ export default function About() {
               </div>
             </HudFrame>
             <HudFrame label="REC" className="about-hero__work">
-              <Img name="about-work" alt="Thai Dang Gia Khang working on an engineering build" ratio="4 / 3" />
+              <Img name="about-work" alt="Audience filming a live performance by Thai Dang Gia Khang" ratio="4 / 3" />
             </HudFrame>
           </div>
         </div>

@@ -347,8 +347,7 @@ export const PASSION = {
           "I led a team of 17 student volunteers in organizing two drowning-prevention sessions for more than 120 primary school students in flood-prone areas of Can Tho.",
           "The sessions covered floating, self-rescue, and safe behavior near water, helping students build awareness of how to respond more safely around waterways.",
         ],
-        images: ["aquarescue-education-2"] as ImageName[],
-        video: true,
+        images: ["aquarescue-education-2", "aquarescue-education-1"] as ImageName[],
       },
       {
         num: "02.",
